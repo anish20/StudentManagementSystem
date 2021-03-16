@@ -1,0 +1,71 @@
+﻿* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    background: rgb(214,229,229);
+    font-size: 14px;
+    color: #2f2f2f;
+    background: linear-gradient(135deg, rgba(214,229,229,1) 0%, rgba(72,77,120,1) 100%);
+}
+
+.wrapper{
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+}
+.box-container {
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    width: 30%;
+}
+
+    .box-container .card {
+        border-radius: 0;
+        background: rgba(0, 0, 0, 0.3)
+    }
+
+    .box-container .user-logo {
+        width: 100%;
+    }
+
+        .box-container .user-logo i {
+            color: #e9b76b;
+            border: solid 2px #ffeff1;
+            border-radius: 90px;
+        }
+
+
+    .box-container .form-body {
+        padding: 30px 35px;
+    }
+
+        .box-container .form-body .form-group {
+            margin-bottom: 0px;
+            height: 72px
+        }
+
+            .box-container .form-body .form-group input {
+                padding: 9px;
+            }
+
+        .box-container .form-body .form-groups button {
+            padding: 9px;
+        }
+
+@media(min-width:300px) and (max-width:900px) {
+    .box-container {
+        width: 84%;
+        left: 48%;
+    }
+
+        .box-container .form-body {
+            padding: 30px 5px;
+        }
+}
+

@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        @{
+            if (HttpContextAccessor.HttpContext.Session.GetString("USER_LOGIN") != null && HttpContextAccessor.HttpContext.Session.GetString("USER_LOGIN") == "YES")
+            {
+                string username = HttpContextAccessor.HttpContext.Session.GetString("USER_NAME");
+                string role = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
+                if (role == "Admin")
+                {
+                    <ul class="nav">
+                        <li class="nav-item nav-category">
+                            <span class="nav-link">MenuList</span>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-action="AdminDashboard" asp-controller="Dashboard" >
+                                <span class="menu-title">Dashboard</span>
+                                <i class="icon-screen-desktop menu-icon"></i>
+                            </a>
+                        </li>
+                       <li class="nav-item">
+                                   <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                       <span class="menu-title">Student Master</span>
+                                       <img class="menu-icon" src="~/admin/student/graduated (1).png" style="width:20px; position:relative;right:-65px" />
+                                   </a>
+                            <div class="collapse" id="ui-basic">
+                                        <ul class="nav flex-column sub-menu">
+                                            <li class="nav-item"> <a class="nav-link" asp-action="Index" asp-controller="Student">Student Management</a></li>
+                                            <li class="nav-item"> <a class="nav-link" asp-action="NewStudent" asp-controller="Student">Add New Admition</a></li>
+                                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Student Fees</a></li>
+                                        </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                                    <a class="nav-link" href="pages/icons/simple-line-icons.html">
+                                        <span class="menu-title">Teacher Master</span>
+                                        <img class="menu-icon" src="~/admin/student/teacher.png" style="width:20px; position:relative;right:-65px" />
+                                    </a>
+                        </li>
+                        <li class="nav-item">
+                                    <a class="nav-link" asp-action="Index" asp-controller="ClassMaster">
+                                        <span class="menu-title">Class Master</span>
+                                        <img class="menu-icon" src="~/admin/student/classroom.png" style="width:20px; position:relative;right:-82px" />
+
+                                    </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/charts/chartist.html">
+                                <span class="menu-title">Subject Master</span>
+                                <img class="menu-icon" src="~/admin/student/reading.png" style="width:20px; position:relative;right:-68px" />
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/tables/basic-table.html">
+                                <span class="menu-title">Staff Master</span>
+                                <i class="icon-grid menu-icon"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                }
+                if (role == "Manager")
+                {
+                    <ul class="nav">
+                        <li class="nav-item nav-category">
+                            <span class="nav-link">Dashboard</span>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">
+                                <span class="menu-title">Dashboard</span>
+                                <i class="icon-screen-desktop menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/charts/chartist.html">
+                                <span class="menu-title">Charts</span>
+                                <i class="icon-chart menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/tables/basic-table.html">
+                                <span class="menu-title">Tables</span>
+                                <i class="icon-grid menu-icon"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                }
+            }
+        }
+
+    </nav>

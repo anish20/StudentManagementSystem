@@ -1,0 +1,50 @@
+﻿@using sms_web.Models
+@model Classes
+@{
+    ViewData["Title"] = "AddNewClass";
+    Layout = "~/Views/Shared/_AdminLayout1.cshtml";
+}
+    <div class="content-wrapper">
+       
+        <h1>Manage Class</h1><hr />
+      <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 offset-3">
+              <div class="mgs mb-1">
+                  @if (ViewBag.Error != null)
+                  {
+                      <div class="alert alert-danger fade show" role="alert">
+                          <span><i class="icon-close"></i>&nbsp;@ViewBag.Error </span> 
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                  }
+              </div>
+             <div class="card shadow">
+                @if (ViewBag.SetHeader != null)
+                {
+                 <div class="card-header"><h5>@ViewBag.SetHeader </h5></div>
+                }
+                <div class="card-body">
+                    <form asp-action="SaveAndUpdateClass" asp-controller="ClassMaster" method="post">
+                        <div class="form-group">
+                            <label for="className">Class Name</label>
+                            <input type="hidden" asp-for="Id">
+                            <input type="text" asp-for="Name" required="" class="form-control" id="className" placeholder="Enter Classs Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea class="form-control" asp-for="Description" required="" rows="3" placeholder="Description"></textarea>
+                        </div>
+
+                        @if (ViewBag.SetButtonText != null && ViewBag.SetButtonBgColor != null && ViewBag.SetTextIcon != null ) {
+                            <button type="submit" class="@ViewBag.SetButtonBgColor mr-2">@ViewBag.SetButtonText <i class="@ViewBag.SetTextIcon"></i></button>
+                        }
+                        <a asp-action="Index" asp-controller="ClassMaster" class="btn btn-danger">Cancel</a>
+                    </form>
+                </div>
+             </div>
+          </div>
+      </div>
+    </div>
+

@@ -1,0 +1,207 @@
+﻿@model sms_web.Models.Student
+
+@{
+    ViewData["Title"] = "NewStudent";
+    Layout = "~/Views/Shared/_AdminLayout1.cshtml";
+}
+
+<div class="content-wrapper">
+    <h1>New Admition</h1><hr />
+                         <div class="container">
+                             <div class="Msg">
+                                 @if (ViewBag.SuccessMessage != null)
+                                 {
+                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                         <span><i class="icon-check"></i>&nbsp;@ViewBag.SuccessMessage</span> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                 }
+                             </div>
+                             <form enctype="multipart/form-data" asp-action="StudentSaveAndUpdate" asp-controller="Student" method="post">
+                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                 <div class="card">
+                                     @if (ViewBag.SetTitleHeader != null)
+                                     {
+                                         <div class="card-header">@ViewBag.SetTitleHeader</div>
+                                     }
+
+                                     <div class="card-body">
+                                         <div class="row">
+                                             <div class="col-md-9">
+                                                 <div class="row">
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <label asp-for="FullName" class="control-label"></label>
+                                                             <input asp-for="Id" type="hidden" id="hiddenID" />
+                                                             <input asp-for="ProfileImage" type="hidden" id="hiddenImage" />
+                                                             <input asp-for="FullName" class="form-control" required="" />
+                                                             @*<span asp-validation-for="FullName" class="text-danger"></span>*@
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <label asp-for="FatherName" class="control-label"></label>
+                                                             <input asp-for="FatherName" class="form-control" required="" />
+                                                             @*<span asp-validation-for="FatherName" class="text-danger"></span>*@
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <label asp-for="MotherName" class="control-label"></label>
+                                                             <input asp-for="MotherName" class="form-control" required="" />
+                                                             @*<span asp-validation-for="MotherName" class="text-danger"></span>*@
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <label asp-for="DOB" class="control-label"></label>
+                                                             <input asp-for="DOB" required="" type="date" class="form-control" />
+                                                             @*<span asp-validation-for="DOB" class="text-danger"></span>*@
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+
+                                                             <label asp-for="AdmitionClass" class="control-label"></label>
+                                                             @if (ViewBag.SetDisabled != "")
+                                                             {
+                                                                 <input asp-for="AdmitionClass" disabled class="form-control" />
+                                                             }
+                                                             else
+                                                             {
+                                                                 <input asp-for="AdmitionClass" required="" class="form-control" />
+                                                             }
+                                                             @*<span asp-validation-for="AdmitionClass" class="text-danger"></span>*@
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <label asp-for="Gender" class="control-label"></label>
+                                                             @if (ViewBag.SetDisabled != "")
+                                                             {
+                                                                 <select asp-for="Gender" class="form-control" disabled>
+                                                                     <option>--select gender--</option>
+                                                                     <option>Male</option>
+                                                                     <option>Female</option>
+                                                                     <option>Others</option>
+                                                                 </select>
+                                                             }
+                                                             else
+                                                             {
+                                                                 <select asp-for="Gender" class="form-control" required="">
+                                                                     <option>--select gender--</option>
+                                                                     <option>Male</option>
+                                                                     <option>Female</option>
+                                                                     <option>Others</option>
+                                                                 </select>
+                                                             }
+                                                                 @*<span asp-validation-for="Gender" class="text-danger"></span>*@
+                                                             </div>
+                                                     </div>
+
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <div id="imagePreview"></div>
+
+                                             </div>
+
+                                         </div>
+                                         <div class="row">
+                                             <div class="col-md-4 col-lg-4 col-sm-12">
+                                                 <div class="form-group">
+                                                     <label asp-for="ContactNo" class="control-label"></label>
+                                                     <input asp-for="ContactNo" required="" class="form-control" />
+                                                     @*<span asp-validation-for="ContactNo" class="text-danger"></span>*@
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-4 col-lg-4 col-sm-12">
+                                                 <div class="form-group">
+                                                     <label asp-for="Address" class="control-label"></label>
+                                                     <input asp-for="Address" required="" class="form-control" />
+                                                     @*<span asp-validation-for="Address" class="text-danger"></span>*@
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-4 col-lg-4 col-sm-12">
+                                                 <div class="form-group">
+                                                     <label asp-for="ProfileImage" class="control-label"></label>
+                                                     @if (ViewBag.SetDisabled != "")
+                                                     {
+                                                         <input asp-for="Image" id="file"  onchange="return fileValidation()" type="file"  class="form-control" />
+
+                                                     }
+                                                     else
+                                                     {
+                                                         <input asp-for="Image" id="file"  onchange="return fileValidation()" type="file" required="" class="form-control" />
+
+
+                                                     }
+                                                     @*<span asp-validation-for="ProfileImage" class="text-danger"></span>*@
+                                                 </div>
+                                             </div>
+
+                                         </div>
+                                         <div class="">
+                                             <button type="submit" class="btn @ViewBag.SetButtonBgColor">@ViewBag.SetButtonText</button>
+                                             <a asp-action="Index" asp-controller="Student" class="btn btn-danger">Back to List</a>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    var imageSrc = "";
+    var id = $("#hiddenID").val();
+    var hiddenImage = $("#hiddenImage").val();
+    function defaultImage() {
+        if (id == 0) {
+            imageSrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEXp7vG6vsG3u77s8fTCxsnn7O/f5OfFyczP09bM0dO8wMPk6ezY3eDd4uXR1tnJzdBvAX/cAAACVElEQVR4nO3b23KDIBRA0ShGU0n0//+2KmO94gWZ8Zxmr7fmwWEHJsJUHw8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwO1MHHdn+L3rIoK6eshsNJ8kTaJI07fERPOO1Nc1vgQm2oiBTWJ+d8+CqV1heplLzMRNonED+4mg7L6p591FC+133/xCRNCtd3nL9BlxWP++MOaXFdEXFjZ7r8D9l45C8y6aG0cWtP/SUGhs2d8dA/ZfGgrzYX+TVqcTNRRO9l+fS5eSYzQs85psUcuzk6igcLoHPz2J8gvzWaH/JLS+95RfOD8o1p5CU5R7l5LkfKEp0mQ1UX7hsVXqDpRrifILD/3S9CfmlUQFhQfuFu0STTyJ8gsP3PH7GVxN1FC4t2sbBy4TNRTu7LyHJbqaqKFw+/Q0ncFloo7CjRPwMnCWqKXQZ75El4nKC9dmcJaou9AXOE5UXbi+RGeJygrz8Uf+GewSn9uXuplnWDZJ7d8f24F/s6iq0LYf9olbS3Q8i5oKrRu4S9ybwaQ/aCkqtP3I28QDgeoK7TBya/aXqL5COx67PTCD2grtdOwH+pQV2r0a7YVBgZoKwwIVFQYG6ikMDVRTGByopjD8ATcKb0UhhRTe77sKs2DV7FKSjId18TUEBYVyLhUThWfILHTDqmI85/2RWWjcE/bhP6OD7maT3h20MHsA47JC3PsW0wcwLhv9t0OOPOIkCn21y2bXXwlyylxiYMPk1SuCSmpfK8bNQvIrpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwNX4BCbAju9/X67UAAAAASUVORK5CYII=";
+        } else {
+            var imgurl = `/admin/StudentImage/${hiddenImage}`;
+            imageSrc = imgurl;
+        }
+        var img = $('<img />').attr({ src: imageSrc, id: "defaultImge", class: "image-fluid img-thumbnail", style: "width: 251px;height: 235px;margin-top:18px;" });
+    $("#mainImage").hide();
+    img.appendTo($('#imagePreview'));
+    }
+    
+    defaultImage();
+
+    function fileValidation() { 
+        $("#defaultImge").hide();
+         //var fileName = $(this).val().split("\\").pop();  
+         //   $(this).siblings("#file").addClass("selected").html(fileName);  
+            var fileInput = document.getElementById('file'); 
+            var filePath = fileInput.value; 
+            // Allowing file type 
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i; 
+            if (!allowedExtensions.exec(filePath)) { 
+                alert('Invalid file type'); 
+                defaultImage();
+                fileInput.value = ''; 
+                return false; 
+            }  
+            else  
+            {  // Image preview 
+                if (fileInput.files && fileInput.files[0]) { 
+                    var reader = new FileReader(); 
+                    reader.onload = function(e) { 
+                        document.getElementById( 
+                            'imagePreview').innerHTML =  
+                            '<img src="' + e.target.result 
+                            + '" class="image-fluid img-thumbnail" style="width: 251px;height: 235px;margin-top:18px;" />'; 
+                    }; 
+                      
+                    reader.readAsDataURL(fileInput.files[0]); 
+                } 
+            } 
+        } 
+
+      
+
+</script>

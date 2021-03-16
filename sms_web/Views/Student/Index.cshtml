@@ -1,0 +1,84 @@
+﻿@using sms_web.Models
+@model IEnumerable<Student>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout1.cshtml";
+}
+<style>
+    .table th img, .table td img {
+    width: 50px;
+    height: 50px;
+    border-radius: unset !important;
+}
+</style>
+    <div class="content-wrapper">
+        <h1>Student Management</h1><hr />
+        <div class="table_wrapper">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="addbtn mb-2 float-right">
+                        <a asp-action="NewStudent" asp-controller="Student" class="btn btn-sm btn-primary btn-rounded">New Admition <i class="fa fa-plus"></i></a>
+                        <a asp-action="NewStudent" asp-controller="Student" class="btn btn-sm btn-warning btn-rounded">Student Fees <i class="fa fa-inr"></i></a>
+                        <a asp-action="NewStudent" asp-controller="Student" class="btn btn-sm btn-success btn-rounded">Attendance Report <i class="fa fa-recycle"></i></a>
+                        <a asp-action="NewStudent" asp-controller="Student" class="btn btn-sm btn-info btn-rounded">Generate Identity Card <i class="fa fa-recycle"></i></a>
+                    </div>
+                    <table class="table table-hover">
+                        <thead class="bg-warning">
+                            <tr>
+                                <th>#</th>
+                                <th>Student Id</th>
+                                <th>Student Name</th>
+                                <th>Image</th>
+                                <th>Father Name</th>
+                                <th>Mother Name</th>
+                                <th>Standared(Class)</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int index = 0; }
+
+                            @foreach (Student std in Model)
+                            {
+                                index = index + 1;
+
+                            <tr>
+                                <td>@index</td>
+                                <td>@std.StudentId</td>
+                                <td>@std.FullName</td>
+                                <td align="center"><img src="~/admin/StudentImage/@std.ProfileImage" class="img-fluid img-thumbnail" height="100" width="100" asp-append-version="true" /></td>
+                                <td>@std.FatherName</td>
+                                <td>@std.MotherName</td>
+                                <td>@std.AdmitionClass</td>
+                                <td style="width:120px">
+                                    @if (std.Status == 1)
+                                    {
+                                        <a href="#" style="pointer-events: none;" ><span class="badge badge-success p-2">Active <i class="fa fa-check"></i></span></a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="ClassMaster" asp-action="ClassActiveAndDeactive" asp-route-id="@std.Id"><span class="badge badge-dark p-2">Deactive <i class="fa fa-times"></i></span></a>
+
+                                    }
+                                    <a asp-controller="Student" asp-action="NewStudent" asp-route-id="@std.Id"><span class="badge badge-warning p-2">Edit <i class="fa fa-edit"></i></span></a>
+
+                                    <a href="javascript:void(0);"><span class="badge badge-secondary p-2">Details <i class="fa fa-ellipsis-v"></i></span></a>
+
+                                </td>
+
+                            </tr>
+                            }
+                            @if (ViewBag.Data != null)
+                            {
+                                <tr>
+                                    <td colspan="8" align="center"><b>@ViewBag.Data</b></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </div>
